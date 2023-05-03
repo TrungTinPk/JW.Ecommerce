@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { LoginRequestDto, LoginResponseDto } from '../models';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants/common';
 
 @Injectable({
     providedIn: 'root'
@@ -30,5 +31,14 @@ export class AuthService {
           }
         }
         )
+    }
+
+    public isAuthenticated(): boolean {
+      return localStorage.getItem(ACCESS_TOKEN) !== null;
+    }
+
+    public logout() {
+      localStorage.removeItem(ACCESS_TOKEN);
+      localStorage.removeItem(REFRESH_TOKEN);
     }
 }
